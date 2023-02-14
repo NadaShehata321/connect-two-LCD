@@ -1,0 +1,38 @@
+
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x20,16,2);  
+LiquidCrystal_I2C lcd1(0x27,16,2);
+int i=0,j=0;
+long time=millis();  
+void setup()
+{
+  lcd.init(); 
+  lcd1.init();                    
+  lcd.backlight();
+  lcd1.backlight();
+  lcd.begin(16,2);
+  lcd.print("minutes");
+  lcd1.begin(16,2);
+  lcd1.print("seconds");
+ 
+}
+
+
+void loop()
+{
+  if(millis()-time >1000){
+   i++;
+   j++;
+    if(i>59){i=0;}
+     time=millis(); 
+  }
+ lcd.setCursor(0,1);
+ lcd.print(j/60);
+ lcd.print("       ");
+ lcd1.setCursor(0,1);
+ lcd1.print(i);
+ lcd1.print("       ");
+ 
+}
